@@ -3,9 +3,31 @@ getSumBtn.append("Get Total Price");
 document.body.appendChild(getSumBtn);
 
 const getSum = () => {
-//Add your code here
-  
+  // 1. Select all prices
+  const prices = document.querySelectorAll(".price");
+  let total = 0;
+
+  prices.forEach(price => {
+    total += parseFloat(price.textContent);
+  });
+
+  // 2. Get the table
+  const table = document.querySelector("table");
+
+  // 3. Remove any previous total row (to avoid duplicates)
+  const oldTotal = document.querySelector(".total-row");
+  if (oldTotal) oldTotal.remove();
+
+  // 4. Create a new row
+  const totalRow = document.createElement("tr");
+  totalRow.classList.add("total-row");
+
+  const totalCell = document.createElement("td");
+  totalCell.colSpan = 2; // span across both columns
+  totalCell.textContent = `Total Price: ₹${total}`;
+
+  totalRow.appendChild(totalCell);
+  table.appendChild(totalRow);
 };
 
 getSumBtn.addEventListener("click", getSum);
-
